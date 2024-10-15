@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import "./LandingPage.css"
+import heroImage from './assets/hero-image.jpg'
 
 const LandingPage = () => {
   return (
@@ -27,7 +28,7 @@ const LandingPage = () => {
           <button className="cta-btn">Get Started</button>
         </div>
         <div className="hero-image">
-          <img src="/images/hero-img.png" alt="Swapping skills" />
+          <img src={heroImage} alt="Swapping skills" />
         </div>
       </section>
 
