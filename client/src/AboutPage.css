@@ -1,0 +1,27 @@
+/* src/AboutPage.css */
+
+.about-container {
+  padding: 50px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-container h1 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.about-container h2 {
+  font-size: 28px;
+  color: #56ccf2;
+  margin-top: 30px;
+}
+
+.about-container p {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
