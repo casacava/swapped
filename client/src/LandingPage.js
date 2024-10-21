@@ -1,5 +1,8 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import "./LandingPage.css"
+import heroImage from './assets/hero-image.jpg'
+import "./ContactPage.css"
 
 const LandingPage = () => {
   return (
@@ -9,9 +12,9 @@ const LandingPage = () => {
           <h1>Swapped</h1>
         </div>
         <ul className="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
         </ul>
         <div className="nav-buttons">
           <button className="login-btn">Login</button>
@@ -26,7 +29,7 @@ const LandingPage = () => {
           <button className="cta-btn">Get Started</button>
         </div>
         <div className="hero-image">
-          <img src="/images/hero-img.png" alt="Swapping skills" />
+          <img src={heroImage} alt="Swapping skills" />
         </div>
       </section>
 
