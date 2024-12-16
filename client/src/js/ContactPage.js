@@ -1,7 +1,7 @@
 // src/ContactPage.js
 
 import React, {useState} from 'react'
-import './ContactPage.css'
+import '../css/ContactPage.css'
 
 let ContactPage = () => {
   let [formData, setFormData] = useState({ name: '', email: '', message: ''})
