@@ -18,7 +18,7 @@ let Layout = () => {
           <div className="nav-buttons">
             {/* Update Login button to link to /signin */}
             <Link to="/signin" className="login-btn">Sign in</Link>
-            <button className="signup-btn">Sign Up</button>
+            <Link to="/signup" className='signup-btn'>Sign up</Link>
           </div>
         </nav>
       </header>
