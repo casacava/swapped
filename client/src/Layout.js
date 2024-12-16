@@ -8,7 +8,7 @@ let Layout = () => {
       <header className="header">
         <nav className="navbar">
           <div className="logo">
-            <h1>Swapped</h1>
+          <h1><Link to="/">Swapped</Link></h1>
           </div>
           <ul className="nav-links">
             <li><Link to="/">Home</Link></li>
@@ -17,7 +17,7 @@ let Layout = () => {
           </ul>
           <div className="nav-buttons">
             {/* Update Login button to link to /signin */}
-            <Link to="/signin" className="login-btn">Log in</Link>
+            <Link to="/signin" className="login-btn">Sign in</Link>
             <button className="signup-btn">Sign Up</button>
           </div>
         </nav>

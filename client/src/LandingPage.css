@@ -15,10 +15,13 @@ body {
   padding: 20px;
   background-color: #333;
   color: white;
+  align-items: center;
 }
 
-.logo h1 {
+.logo a {
   font-size: 24px;
+  color: white;
+  text-decoration: none;
 }
 
 .nav-links {
