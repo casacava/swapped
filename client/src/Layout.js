@@ -16,7 +16,8 @@ let Layout = () => {
             <li><Link to="/contact">Contact</Link></li>
           </ul>
           <div className="nav-buttons">
-            <button className="login-btn">Login</button>
+            {/* Update Login button to link to /signin */}
+            <Link to="/signin" className="login-btn">Log in</Link>
             <button className="signup-btn">Sign Up</button>
           </div>
         </nav>

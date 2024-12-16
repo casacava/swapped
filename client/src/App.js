@@ -5,6 +5,7 @@ import Layout from './Layout'
 import LandingPage from "./LandingPage"
 import AboutPage from "./AboutPage"
 import ContactPage from "./ContactPage"
+import SignIn from "./SignIn"
 
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
 
           {/* Contact page */}
           <Route path="/contact" element={<ContactPage />} />
+
+          {/* Sign in */}
+          <Route path="/signin" element={<SignIn />} />
         </Route>
       </Routes>
     </Router>
