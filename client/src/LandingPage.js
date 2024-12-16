@@ -12,7 +12,7 @@ const landingPage = () => {
       <div className="hero-content">
         <h1>Swap Skills, Learn New Things</h1>
         <p>Connect with others, teach or learn new skills without paying a cent</p>
-        <button className="cta-btn">Get Started</button>
+        <Link to="/signin" className="cta-btn">Get Started</Link>
       </div>
       <div className="hero-image">
         <img src={heroImage} alt="Swapping skills" />
