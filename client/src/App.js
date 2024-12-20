@@ -6,6 +6,7 @@ import LandingPage from "./js/LandingPage"
 import AboutPage from "./js/AboutPage"
 import ContactPage from "./js/ContactPage"
 import SignIn from "./js/SignIn"
+import SignUp from "./js/SignUp"
 
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
 
           {/* Sign in */}
           <Route path="/signin" element={<SignIn />} />
+
+          {/* Sign up */}
+          <Route path="/signup" element={<SignUp />} />
         </Route>
       </Routes>
     </Router>
