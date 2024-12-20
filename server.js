@@ -12,6 +12,8 @@ const authRoutes = require('./routes/authRoutes')
 const app = express()
 const PORT = process.env.PORT || 3000
 
+require('dotenv').config()
+
 // middleware
 app.use(express.json()) // to parse JSON requests
 app.use(cors())
@@ -21,7 +23,7 @@ app.use(authRoutes)
 
 
 // connect to MongoDB
-const dbURI = process.env.MONGO_URI || 'mongodb+srv://cassiopeiacavazos:XQxtEBiTgMSPCuWv@swappedcluster.ibrp7.mongodb.net/?retryWrites=true&w=majority&appName=SwappedCluster';
+const dbURI = process.env.MONGO_URI
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
