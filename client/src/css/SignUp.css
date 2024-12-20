@@ -1,0 +1,14 @@
+#signup-container {
+  max-width: 400px; 
+  margin: auto; 
+  padding: 20px;
+}
+#signup-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+textarea {
+  width: 400px;
+}

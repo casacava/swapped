@@ -113,7 +113,7 @@ body {
   color: white;
   text-align: center;
 }
-.login-btn {
+.login-btn, .signup-btn {
   text-decoration: none;
   color: white;
   background-color: #56ccf2;
@@ -124,6 +124,6 @@ body {
   display: inline-block;
 }
 
-.login-btn:hover {
+.login-btn:hover, .signup-btn:hover {
   background-color: #0056b3;
 }
