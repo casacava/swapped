@@ -6,13 +6,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true }, // Store hashed password
   bio: { type: String }, // Optional
   location: { type: String }, // Optional
-  skills: [
-    {
-      skill_name: { type: String, required: true },
-      description: { type: String },
-      category: { type: String }
-    }
-  ],
+  skills: [String],
   created_at: { type: Date, default: Date.now }
 })
 

@@ -7,6 +7,7 @@ import AboutPage from "./js/AboutPage"
 import ContactPage from "./js/ContactPage"
 import SignIn from "./js/SignIn"
 import SignUp from "./js/SignUp"
+import SkillsSelection from "./js/SkillsSelection"
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
 
           {/* Sign up */}
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup/skills" element={<SkillsSelection />} />
         </Route>
       </Routes>
     </Router>

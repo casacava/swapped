@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import "../css/SignUp.css"
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +10,8 @@ const SignUp = () => {
     password: '',
     bio: '',
     location: ''
-  });
+  })
+  const navigate = useNavigate
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
@@ -22,13 +24,15 @@ const SignUp = () => {
     e.preventDefault()
     try {
       const response = await axios.post('/api/auth/signup', formData);
-      setSuccess(response.data.message);
+      setSuccess(response.data.userId)
       setError('')
+      const userId = response.data.userId // retrieve userId from BE
+      navigate('/signup/skills', { state: {userId} })
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred')
       setSuccess('')
     }
-  };
+  }
 
   return (
     <div id="signup-container">

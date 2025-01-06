@@ -10,7 +10,7 @@ const User = require('./models/User')
 const authRoutes = require('./routes/authRoutes')
 
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 require('dotenv').config()
 

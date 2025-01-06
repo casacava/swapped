@@ -6,6 +6,7 @@ const router = express.Router()
 
 // sign up router
 router.post('/api/auth/signup', async (req, res) => {
+  console.log('Signup route hit')
   const { name, email, password, bio, location } = req.body
 
   try {
@@ -28,9 +29,28 @@ router.post('/api/auth/signup', async (req, res) => {
   await newUser.save()
   res.status(201).json({ message: 'user created successfully!'})
 } catch (error) {
+  console.error('Error during signup:', error)
   res.status(500).json({ message: 'server error', error})
 }
 })
+
+// handles skill selection + updates user profile
+router.post('/api/auth/skills', async (req, res) => {
+  const { userId, skills } = req.body
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: 'User not found' })
+
+    user.skills = skills // Update skills
+    await user.save()
+
+    res.status(200).json({ message: 'Skills updated successfully!', user })
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error })
+  }
+})
+
 
 // Sign-in route
 router.post('/api/auth/signin', async (req, res) => {
