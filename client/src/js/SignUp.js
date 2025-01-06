@@ -4,6 +4,7 @@ import "../css/SignUp.css"
 import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,7 +12,7 @@ const SignUp = () => {
     bio: '',
     location: ''
   })
-  const navigate = useNavigate
+  
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
@@ -23,12 +24,14 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post('/api/auth/signup', formData);
+      const response = await axios.post('/api/auth/signup', formData)
+      console.log(response)
+      const userId = response.data.userId // retrieve userId from BE
       setSuccess(response.data.userId)
       setError('')
-      const userId = response.data.userId // retrieve userId from BE
-      navigate('/signup/skills', { state: {userId} })
+      navigate('/signup/skills', { state: { userId } })
     } catch (err) {
+      console.log(err)
       setError(err.response?.data?.message || 'An error occurred')
       setSuccess('')
     }

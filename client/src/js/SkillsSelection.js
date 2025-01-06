@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-// import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
-const SkillsSelection = ({ userId}) => {
+const SkillsSelection = () => {
+  const location = useLocation()
+  const { userId } = location.state || {} //retrieve userId
+  
   const [skills, setSkills] = useState([])
   const allSkills = [
     'yoga',

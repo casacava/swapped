@@ -27,7 +27,11 @@ router.post('/api/auth/signup', async (req, res) => {
   })
 
   await newUser.save()
-  res.status(201).json({ message: 'user created successfully!'})
+
+  res.status(201).json({ 
+    message: 'user created successfully!',
+    userId: newUser._id
+  })
 } catch (error) {
   console.error('Error during signup:', error)
   res.status(500).json({ message: 'server error', error})
