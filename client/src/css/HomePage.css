@@ -1,0 +1,30 @@
+#homepage-container {
+  text-align: center;
+}
+#homepage-banner {
+  background-color: #f8f9fa;
+  padding: 10px 0px;
+  border-bottom: 1px solid #ddd;
+}
+#homepage-nav {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+#homepage-nav li {
+  display: inline;
+}
+#homepage-nav a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+#homepage-nav a:hover {
+  color: #0056b3;
+}
+#homepage-content {
+  padding: 20px;
+}

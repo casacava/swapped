@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
 import "../css/SkillsSelection.css"
+import { useNavigate } from 'react-router-dom'
 
 const SkillsSelection = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const { userId } = location.state || {} //retrieve userId
   
   const [skills, setSkills] = useState([])
@@ -37,6 +39,7 @@ const SkillsSelection = () => {
     try {
       const res = await axios.post('/api/auth/skills', { userId, skills})
       alert(res.data.message)
+      navigate('/home') //redirects user to home after selecting skills
     } catch (error) {
       console.error(error)
       alert('error updating skills, try again')
