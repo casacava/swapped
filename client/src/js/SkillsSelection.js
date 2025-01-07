@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
+import "../css/SkillsSelection.css"
 
 const SkillsSelection = () => {
   const location = useLocation()
