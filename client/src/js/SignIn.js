@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const response = await axios.post('/api/auth/signin', { email, password })
-      localStorage.setItem('token', response.data.token)
-      alert('signed in successfully')
+      localStorage.setItem('token', response.data.token) //saves token to localStorage
+      navigate('/home', { state: {userId: response.data.userId} })
     } catch (err) {
       setError(err.response?.data?.message || 'an error was found, try agin')
     }
