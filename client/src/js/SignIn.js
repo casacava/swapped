@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from './AuthContext'
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const { setIsSignedIn } = useContext(AuthContext)
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -13,7 +15,8 @@ const SignIn = () => {
     try {
       const response = await axios.post('/api/auth/signin', { email, password })
       localStorage.setItem('token', response.data.token) //saves token to localStorage
-      navigate('/home', { state: {userId: response.data.userId} })
+      setIsSignedIn(true)
+      navigate('/home')
     } catch (err) {
       setError(err.response?.data?.message || 'an error was found, try agin')
     }
