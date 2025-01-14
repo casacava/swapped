@@ -1,11 +1,19 @@
 import React, { useContext } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { AuthContext } from './AuthContext'
+import { useNavigate } from 'react-router-dom'
 // import './Layout.css'
 
 let Layout = () => {
+  const { isSignedIn, setIsSignedIn } = useContext(AuthContext)
+  const navigate = useNavigate()
 
-  const { isSignedIn } = useContext(AuthContext)
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    setIsSignedIn(false)
+    navigate('/')
+  }
+
   return (
     <div className="layout">
       <header className="header">
@@ -19,6 +27,7 @@ let Layout = () => {
               <>
                 <li><Link to="/messages">Message</Link></li>
                 <li><Link to="/profile">Profile</Link></li>
+                <button onClick={ handleLogout } className='logout-btn'>Log Out</button>
               </>
             ) : (
               <>
