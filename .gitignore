@@ -1,2 +1,5 @@
 # Environment variables: hides mongodb code
 .env
+
+# other
+node_modules/
