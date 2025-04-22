@@ -9,21 +9,26 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<'learn' | 'share'>('learn')
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-serif text-indigo-800">Welcome to Swapped ✨</h1>
-        <button className="text-sm text-gray-500 hover:underline">Log Out</button>
-      </div>
+    <main className="min-h-screen bg-[#FDF7F2] font-sans text-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h1 className="text-3xl sm:text-4xl font-serif text-indigo-900">
+            Welcome to Swapped ✨
+          </h1>
+          <button className="text-sm text-gray-600 hover:underline">Log Out</button>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 space-y-4">
-          <MatchTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-        </div>
-        <div className="space-y-4">
-          <ProfilePreview />
-          <RecentMessages />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="md:col-span-2 space-y-6">
+            <MatchTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+          </div>
+
+          <div className="space-y-6">
+            <ProfilePreview />
+            <RecentMessages />
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

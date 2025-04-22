@@ -58,20 +58,24 @@ export default function MatchTabs({
   }, [activeTab])
 
   return (
-    <div>
-      <div className="flex mb-4 space-x-2">
+    <div className="space-y-4">
+      <div className="flex gap-3">
         <button
           onClick={() => setActiveTab('learn')}
-          className={`px-4 py-2 rounded-full ${
-            activeTab === 'learn' ? 'bg-indigo-100 text-indigo-700' : 'bg-gray-100 text-gray-600'
+          className={`px-4 py-2 rounded-full font-medium transition ${
+            activeTab === 'learn'
+              ? 'bg-[#F36C5E] text-white'
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
           }`}
         >
           Looking to Learn
         </button>
         <button
           onClick={() => setActiveTab('share')}
-          className={`px-4 py-2 rounded-full ${
-            activeTab === 'share' ? 'bg-indigo-100 text-indigo-700' : 'bg-gray-100 text-gray-600'
+          className={`px-4 py-2 rounded-full font-medium transition ${
+            activeTab === 'share'
+              ? 'bg-[#403F7A] text-white'
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
           }`}
         >
           Happy to Share
@@ -79,9 +83,11 @@ export default function MatchTabs({
       </div>
 
       {loading ? (
-        <p className="text-sm text-gray-500">Loading matches...</p>
+        <p className="text-sm text-gray-500 mt-4">Loading matches...</p>
+      ) : matches.length === 0 ? (
+        <p className="text-sm text-gray-500 mt-4">No matches yet. Try adding more skills!</p>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid sm:grid-cols-2 gap-4 pt-2">
           {matches.map((match) => (
             <MatchCard
               key={match.id}

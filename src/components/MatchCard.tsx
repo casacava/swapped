@@ -1,26 +1,42 @@
-export default function MatchCard({
-  name,
-  skills,
-  bio,
-}: {
-  name: string;
-  skills: string[];
-  bio: string;
-}) {
+'use client'
+
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+
+type MatchCardProps = {
+  name: string
+  bio: string
+  skills: string[]
+}
+
+export default function MatchCard({ name, bio, skills }: MatchCardProps) {
   return (
-    <div className="p-4 border rounded-xl shadow-sm bg-white space-y-2">
-      <div className="text-lg font-semibold">{name}</div>
-      <p className="text-sm text-gray-600">{bio}</p>
-      <div className="flex flex-wrap gap-2">
-        {skills.map((skill, i) => (
-          <span key={i} className="bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full text-xs">
-            {skill}
-          </span>
-        ))}
-      </div>
-      <button className="w-full mt-2 text-sm bg-indigo-600 text-white py-1.5 rounded-md hover:bg-indigo-700">
-        Message
-      </button>
-    </div>
+    <Card className="rounded-2xl shadow-md hover:shadow-lg transition bg-white">
+      <CardContent className="p-4 space-y-3">
+        <div className="flex items-center gap-3">
+          <Avatar>
+            <AvatarFallback>{name[0]}</AvatarFallback>
+          </Avatar>
+          <div>
+            <h3 className="text-base font-semibold text-indigo-900">{name}</h3>
+            <p className="text-sm text-muted-foreground">{bio}</p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2 pt-2">
+          {skills.map((skill, i) => (
+            <Badge key={i} className="bg-indigo-50 text-indigo-700">
+              {skill}
+            </Badge>
+          ))}
+        </div>
+
+        <Button variant="default" className="w-full bg-indigo-700 hover:bg-indigo-800">
+          Message
+        </Button>
+      </CardContent>
+    </Card>
   )
 }
