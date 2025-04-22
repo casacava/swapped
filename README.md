@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔁 Swapped
 
-## Getting Started
+Swapped is a modern web app that helps people **exchange skills** instead of money. Whether you're offering Pilates lessons, guitar tutorials, or coding help — Swapped makes it easy to connect, match, and collaborate. 🧑‍🏫🤝🧑‍🎨
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Tool            | Description                                 |
+|-----------------|---------------------------------------------|
+| ⚛️ React        | UI library for building dynamic interfaces  |
+| ⛓️ Next.js 14   | Framework for routing, layouts, and tooling |
+| 🧠 TypeScript   | Static typing for safety and scalability    |
+| 🎨 Tailwind CSS | Utility-first styling with full customizability |
+| 📦 ESLint       | Code quality and style enforcement          |
+| 🌊 Supabase     | Backend-as-a-service: Auth + Database       |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔐 Supabase Setup
 
-## Learn More
+Make sure your `.env.local` includes:
 
-To learn more about Next.js, take a look at the following resources:
+NEXT_PUBLIC_SUPABASE_URL=your-url 
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📌 Features (in progress)
+🧑‍💻 User authentication (via Supabase)
 
-## Deploy on Vercel
+🔎 Skill discovery and matching
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+💬 In-app messaging
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🧾 Profile creation + updates
+
+✨ Clean, responsive UI built with Tailwind
