@@ -1,16 +1,61 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabaseClient'
 import MatchCard from './MatchCard'
+
+type Profile = {
+  id: string
+  username: string
+  bio: string
+  skills_offered: string[]
+  skills_wanted: string[]
+}
 
 export default function MatchTabs({
   activeTab,
   setActiveTab,
 }: {
-  activeTab: 'learn' | 'share';
-  setActiveTab: (tab: 'learn' | 'share') => void;
+  activeTab: 'learn' | 'share'
+  setActiveTab: (tab: 'learn' | 'share') => void
 }) {
-  const matches = [
-    { name: 'Jane Doe', skills: ['Pottery', 'Spanish'], bio: 'Loves creative projects!' },
-    { name: 'Alex Kim', skills: ['Cooking'], bio: 'Chef and food blogger.' },
-  ];
+  const [matches, setMatches] = useState<Profile[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchMatches = async () => {
+      setLoading(true)
+
+      // Get current user ID
+      const { data: user } = await supabase.auth.getUser()
+      const userId = user?.user?.id
+
+      if (!userId) return
+
+      const { data: currentProfile } = await supabase
+        .from('profiles')
+        .select('skills_offered, skills_wanted')
+        .eq('id', userId)
+        .single()
+
+      if (!currentProfile) return
+
+      const skillField = activeTab === 'learn' ? 'skills_offered' : 'skills_wanted'
+      const targetSkills = activeTab === 'learn' ? currentProfile.skills_wanted : currentProfile.skills_offered
+
+      // Fetch matching users
+      const { data: matchProfiles } = await supabase
+        .from('profiles')
+        .select('*')
+        .not('id', 'eq', userId)
+        .overlaps(skillField, targetSkills)
+
+      setMatches(matchProfiles || [])
+      setLoading(false);
+    };
+
+    fetchMatches()
+  }, [activeTab])
 
   return (
     <div>
@@ -33,11 +78,20 @@ export default function MatchTabs({
         </button>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        {matches.map((match, index) => (
-          <MatchCard key={index} {...match} />
-        ))}
-      </div>
+      {loading ? (
+        <p className="text-sm text-gray-500">Loading matches...</p>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2">
+          {matches.map((match) => (
+            <MatchCard
+              key={match.id}
+              name={match.username}
+              skills={activeTab === 'learn' ? match.skills_offered : match.skills_wanted}
+              bio={match.bio}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
