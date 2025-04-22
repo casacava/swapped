@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clean-branch": "bash -c 'branch=$1; git checkout main && git pull && git branch -d $branch && git push origin --delete $branch'"
+    "clean-branch": "bash -c 'branch=$1; git checkout main && git pull && if git branch --merged | grep -q \"$branch\"; then git branch -d $branch && git push origin --delete $branch; else echo \"❌ Branch $branch is not merged into main. Aborting.\"; fi'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",
