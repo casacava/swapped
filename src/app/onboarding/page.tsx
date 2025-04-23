@@ -5,6 +5,7 @@ import UsernameInput from '@/components/UsernameInput'
 import GenderSelect from '@/components/GenderSelect'
 import BioInput from '@/components/BioInput'
 import SkillsMultiSelect from '@/components/SkillsMultiSelect'
+import ZipcodeInput from '@/components/ZipcodeInput'
 
 
 export default function OnboardingPage() {
@@ -13,6 +14,7 @@ export default function OnboardingPage() {
   const [bio, setBio] = useState('')
   const [skillsOffered, setSkillsOffered] = useState<string[]>([])
   const [skillsWanted, setSkillsWanted] = useState<string[]>([])
+  const [zipcode, setZipcode] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,6 +40,7 @@ export default function OnboardingPage() {
           selectedSkills={skillsWanted}
           onChange={setSkillsWanted}
         />
+        <ZipcodeInput value={zipcode} onChange={setZipcode} />
 
         <button
           type="submit"
