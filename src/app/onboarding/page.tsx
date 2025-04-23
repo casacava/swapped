@@ -4,7 +4,7 @@ import { useState } from 'react'
 import UsernameInput from '@/components/UsernameInput'
 import GenderSelect from '@/components/GenderSelect'
 import BioInput from '@/components/BioInput'
-import SkillsMultiSelect from '@/components/SkillsMultiSelect'
+import SkillsSelector from '@/components/SkillsSelector'
 import ZipcodeInput from '@/components/ZipcodeInput'
 
 
@@ -29,16 +29,11 @@ export default function OnboardingPage() {
         <UsernameInput value={username} onChange={setUsername} />
         <GenderSelect value={gender} onChange={setGender} />
         <BioInput value={bio} onChange={setBio} />
-        <SkillsMultiSelect
-          label="Skills You Can Offer"
-          selectedSkills={skillsOffered}
-          onChange={setSkillsOffered}
-        />
-
-        <SkillsMultiSelect
-          label="Skills You Want to Learn"
-          selectedSkills={skillsWanted}
-          onChange={setSkillsWanted}
+        <SkillsSelector
+          offered={skillsOffered}
+          wanted={skillsWanted}
+          setOffered={setSkillsOffered}
+          setWanted={setSkillsWanted}
         />
         <ZipcodeInput value={zipcode} onChange={setZipcode} />
 
