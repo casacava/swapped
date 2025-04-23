@@ -2,9 +2,14 @@
 
 import { useState } from 'react'
 import UsernameInput from '@/components/UsernameInput'
+import GenderSelect from '@/components/GenderSelect'
+import BioInput from '@/components/BioInput'
+
 
 export default function OnboardingPage() {
   const [username, setUsername] = useState('')
+  const [gender, setGender] = useState('')
+  const [bio, setBio] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -17,6 +22,8 @@ export default function OnboardingPage() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <UsernameInput value={username} onChange={setUsername} />
+        <GenderSelect value={gender} onChange={setGender} />
+        <BioInput value={bio} onChange={setBio} />
 
         <button
           type="submit"
