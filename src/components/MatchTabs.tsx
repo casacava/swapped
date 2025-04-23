@@ -25,37 +25,38 @@ export default function MatchTabs({
   useEffect(() => {
     const fetchMatches = async () => {
       setLoading(true)
-
-      // Get current user ID
+  
       const { data: user } = await supabase.auth.getUser()
       const userId = user?.user?.id
-
       if (!userId) return
-
+  
       const { data: currentProfile } = await supabase
         .from('profiles')
         .select('skills_offered, skills_wanted')
         .eq('id', userId)
         .single()
-
+  
       if (!currentProfile) return
-
+  
       const skillField = activeTab === 'learn' ? 'skills_offered' : 'skills_wanted'
-      const targetSkills = activeTab === 'learn' ? currentProfile.skills_wanted : currentProfile.skills_offered
-
-      // Fetch matching users
-      const { data: matchProfiles } = await supabase
+      const targetSkills =
+        activeTab === 'learn' ? currentProfile.skills_wanted : currentProfile.skills_offered
+  
+      const { data: matchProfiles, error } = await supabase
         .from('profiles')
         .select('*')
         .not('id', 'eq', userId)
         .overlaps(skillField, targetSkills)
-
+  
+      if (error) {
+        console.error('Error fetching matches:', error.message)
+      }
+  
       setMatches(matchProfiles || [])
-      setLoading(false);
-    };
-
+      setLoading(false)
+    }
     fetchMatches()
-  }, [activeTab])
+  }, [activeTab])  
 
   return (
     <div className="space-y-4">
