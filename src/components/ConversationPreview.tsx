@@ -6,6 +6,7 @@ type Props = {
   otherUserName: string
   lastMessage: string
   lastMessageTime: string
+  isActive?: boolean
 };
 
 export default function ConversationPreview({
@@ -14,10 +15,15 @@ export default function ConversationPreview({
   otherUserName,
   lastMessage,
   lastMessageTime,
+  isActive = false,
 }: Props) {
   return (
     <Link href={`/messages/${conversationId}`}>
-      <div className="p-4 border-b hover:bg-gray-50 transition">
+      <div
+        className={`p-4 border-b transition ${
+          isActive ? 'bg-indigo-50' : 'hover:bg-gray-50'
+        }`}
+      >
         <div className="flex justify-between items-center">
           <div>
             <div className="font-semibold">{otherUserName}</div>
