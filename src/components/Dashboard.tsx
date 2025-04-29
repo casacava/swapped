@@ -4,7 +4,7 @@ import { useState } from 'react'
 import MatchTabs from './MatchTabs'
 import ProfilePreview from './ProfilePreview'
 import RecentMessages from './RecentMessages'
-import { supabase } from '@/lib/supabaseClient'
+import { supabase } from '@/lib/supabase/supabaseClient'
 import { useRouter } from 'next/navigation'
 
 export default function Dashboard() {

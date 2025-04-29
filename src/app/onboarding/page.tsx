@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabaseClient'
+import { supabase } from '@/lib/supabase/supabaseClient'
 import { useState, useEffect } from 'react'
 import UsernameInput from '@/components/UsernameInput'
 import GenderSelect from '@/components/GenderSelect'
