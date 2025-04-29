@@ -4,9 +4,17 @@ import { useState } from 'react'
 import MatchTabs from './MatchTabs'
 import ProfilePreview from './ProfilePreview'
 import RecentMessages from './RecentMessages'
+import { supabase } from '@/lib/supabaseClient'
+import { useRouter } from 'next/navigation'
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<'learn' | 'share'>('learn')
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    router.push('/login')
+  }
 
   return (
     <main className="min-h-screen bg-[#FDF7F2] font-sans text-gray-800">
@@ -15,7 +23,7 @@ export default function Dashboard() {
           <h1 className="text-3xl sm:text-4xl font-serif text-indigo-900">
             Welcome to Swapped ✨
           </h1>
-          <button className="text-sm text-gray-600 hover:underline">Log Out</button>
+          <button onClick={handleLogout} className="text-sm text-gray-600 hover:underline">Log Out</button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
