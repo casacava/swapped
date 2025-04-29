@@ -81,7 +81,16 @@ export default function ConversationPage() {
 
   return (
     <div className="flex flex-col h-screen">
-      <header className="p-4 border-b text-lg font-semibold">Conversation</header>
+      <header className="p-4 border-b text-lg font-semibold flex items-center gap-4">
+      <button
+          onClick={() => router.push('/messages')}
+          className="text-indigo-600 hover:underline text-sm"
+        >
+          ← Back
+        </button>
+        Conversation
+      </header>
+      
 
       <main className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.map((msg) => (
