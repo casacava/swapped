@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabaseClient"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -14,6 +15,7 @@ type Profile = {
 }
 
 export default function ProfilePreview() {
+  const router = useRouter()
   const [profile, setProfile] = useState<Profile | null>(null)
 
   useEffect(() => {
@@ -79,7 +81,7 @@ export default function ProfilePreview() {
           ))}
         </div>
 
-        <Button variant="secondary" className="w-full mt-2 transition-all hover:scale-[1.02] hover:bg-indigo-50 hover:text-indigo-900">
+        <Button onClick={() => router.push('/profile/edit')} variant="secondary" className="w-full mt-2 transition-all hover:scale-[1.02] hover:bg-indigo-50 hover:text-indigo-900">
           Edit Profile
         </Button>
       </CardContent>
