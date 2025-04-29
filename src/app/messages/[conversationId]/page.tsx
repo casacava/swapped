@@ -46,6 +46,37 @@ export default function ConversationPage() {
     fetchData()
   }, [conversationId, router])
 
+  useEffect(() => {
+    if (!conversationId) return
+  
+    const channel = supabase
+    .channel(`conversation-${conversationId}`, {
+      config: {
+        broadcast: {
+          self: true,
+        },
+      },
+    })
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'messages',
+        filter: `conversation_id=eq.${conversationId}`,
+      },
+      (payload) => {
+        const newMessage = payload.new as Message;
+        setMessages((prev) => [...prev, newMessage]);
+      }
+    )
+    .subscribe();
+  
+    return () => {
+      supabase.removeChannel(channel);
+    }
+  }, [conversationId])
+
   if (!userId) return null
 
   return (

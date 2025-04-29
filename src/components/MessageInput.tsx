@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { supabase } from '@/lib/supabase/supabaseClient';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react'
+import { supabase } from '@/lib/supabase/supabaseClient'
+import { useRouter } from 'next/navigation'
 
 type Props = {
-  conversationId: string;
-  senderId: string;
+  conversationId: string
+  senderId: string
 };
 
 export default function MessageInput({ conversationId, senderId }: Props) {
-  const [text, setText] = useState('');
-  const router = useRouter();
+  const [text, setText] = useState('')
+  const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const trimmed = text.trim();
-    if (!trimmed) return;
+    e.preventDefault()
+    const trimmed = text.trim()
+    if (!trimmed) return
 
     const { error } = await supabase.from('messages').insert({
       conversation_id: conversationId,
@@ -25,10 +25,9 @@ export default function MessageInput({ conversationId, senderId }: Props) {
     });
 
     if (!error) {
-      setText('');
-      router.refresh(); // Reload page to re-fetch messages
+      setText('')
     } else {
-      console.error('Error sending message:', error.message);
+      console.error('Error sending message:', error.message)
     }
   }
 
