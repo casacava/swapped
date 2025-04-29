@@ -1,14 +1,52 @@
 'use client'
 
+import { useEffect, useState } from "react"
+import { supabase } from "@/lib/supabaseClient"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 // import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
+type Profile = {
+  username: string;
+  bio: string;
+  skills_offered: string[];
+}
+
 export default function ProfilePreview() {
-  const username = 'Cass Cav'
-  const bio = 'Frontend dev + Pilates lover!'
-  const skills = ['JavaScript', 'Pilates', 'Cooking']
+  const [profile, setProfile] = useState<Profile | null>(null)
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data: userData } = await supabase.auth.getUser()
+      const userId = userData?.user?.id
+
+      if (!userId) return
+
+      const { data: profileData, error} = await supabase
+      .from('profiles')
+      .select('username, bio, skills_offered')
+      .eq('id', userId)
+      .single()
+
+      if (error) {
+        console.error('failed to fetch profile:', error.message)
+      } else setProfile(profileData)
+    }
+
+    fetchProfile()
+  }, [])
+
+  if (!profile) {
+    return (
+      <Card className="rounded-2xl shadow-md bg-white">
+        <CardContent className="p-4">
+          <p className="text-sm text-gray-500">Loading profile...</p>
+        </CardContent>
+      </Card>
+    )
+  }
+
 
   const badgeStyles = [
     'bg-[#F36C5E] text-white', // Coral filled
@@ -22,16 +60,16 @@ export default function ProfilePreview() {
 
         <div className="flex items-center gap-3">
           <Avatar>
-            <AvatarFallback>{username[0]}</AvatarFallback>
+            <AvatarFallback>{profile.username[0]}</AvatarFallback>
           </Avatar>
           <div>
-            <div className="text-base font-semibold text-indigo-800">{username}</div>
-            <p className="text-sm text-muted-foreground">{bio}</p>
+            <div className="text-base font-semibold text-indigo-800">{profile.username}</div>
+            <p className="text-sm text-muted-foreground">{profile.bio}</p>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2 pt-2">
-          {skills.map((skill, i) => (
+          {profile.skills_offered.map((skill, i) => (
             <span
               key={i}
               className={`text-sm px-3 py-1 rounded-full font-medium ${badgeStyles[i % badgeStyles.length]}`}
