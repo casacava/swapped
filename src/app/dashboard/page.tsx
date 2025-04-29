@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabaseClient'
 
-// import Dashboard from '@/components/Dashboard'
+import Dashboard from '@/components/Dashboard'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -38,7 +38,7 @@ export default function DashboardPage() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold">Welcome to your dashboard</h1>
-      {/* dashboard content here */}
+      <Dashboard />
     </div>
   )
 }
