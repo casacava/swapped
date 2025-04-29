@@ -25,10 +25,15 @@ export default function UsernameInput({
       const { data, error } = await supabase
         .from('profiles')
         .select('username')
-        .eq('username', value)
-        .single()
+        .eq('username', value.toLowerCase())
+      
+        if (error) {
+          console.error('error checking username availability', error)
+          setAvailable(null)
+        } else {
+          setAvailable(data.length === 0)
+        }
 
-      setAvailable(!data && !error)
       setChecking(false)
     }, 500)
 
