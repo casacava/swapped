@@ -34,7 +34,7 @@ export default function Signup () {
     if (error) {
       setError(error.message)
     } else {
-      router.push('/dashboard')
+      router.push('/confirm-email')
     }
   }
 

@@ -1,6 +1,7 @@
 'use client'
-
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabaseClient'
+import { useState, useEffect } from 'react'
 import UsernameInput from '@/components/UsernameInput'
 import GenderSelect from '@/components/GenderSelect'
 import BioInput from '@/components/BioInput'
@@ -9,6 +10,7 @@ import ZipcodeInput from '@/components/ZipcodeInput'
 
 
 export default function OnboardingPage() {
+  const router = useRouter()
   const [username, setUsername] = useState('')
   const [gender, setGender] = useState('')
   const [bio, setBio] = useState('')
@@ -16,9 +18,64 @@ export default function OnboardingPage() {
   const [skillsWanted, setSkillsWanted] = useState<string[]>([])
   const [zipcode, setZipcode] = useState('')
 
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const redirectIfProfileExists = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+  
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single()
+  
+      if (profile) {
+        router.push('/dashboard')
+      }
+    }
+    redirectIfProfileExists()
+  }, [])
+  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log({ username }) // eventually submit this to Supabase
+    setLoading(true)
+    setError(null)
+
+    // get current user ID
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser()
+
+    if (!user || userError) {
+      setError('unable to get user info. Please try again.')
+      setLoading(false)
+      return
+    }
+
+    const { error: insertError } = await supabase
+    .from('profiles')
+    .insert({
+      id: user.id,
+      username,
+      gender,
+      bio,zipcode,
+      skills_offered: skillsOffered,
+      skills_wanted: skillsWanted,
+    })
+
+    if (insertError) {
+      setError(insertError.message)
+      setLoading(false)
+      return
+    }
+
+    //redirect
+    router.push('/dashboard')
   }
 
   return (
@@ -37,11 +94,14 @@ export default function OnboardingPage() {
         />
         <ZipcodeInput value={zipcode} onChange={setZipcode} />
 
+        {error && <p className="text-red-600 text-sm">{error}</p>}
+
         <button
           type="submit"
+          disabled={loading}
           className="bg-indigo-600 text-white px-4 py-2 rounded-lg"
         >
-          Continue
+          {loading ? 'Saving...' : 'Finish Onboarding'}
         </button>
       </form>
     </div>
