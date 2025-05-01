@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter } from "next/navigation"
+import { supabase } from "@/lib/supabase/supabaseClient"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -9,9 +11,69 @@ type MatchCardProps = {
   name: string
   bio: string
   skills: string[]
+  currentUserId: string
+  currentUserName: string
+  targetUserId: string
+  targetUserName: string
+  matchedSkill: string
 }
 
-export default function MatchCard({ name, bio, skills }: MatchCardProps) {
+export default function MatchCard({ 
+  name, 
+  bio, 
+  skills,
+  currentUserId,
+  currentUserName,
+  targetUserId,
+  targetUserName,
+  matchedSkill, }: MatchCardProps) {
+    const router = useRouter()
+
+    async function handleMessage() {
+      const { data: existing, error: existingError } = await supabase
+      .from('conversations')
+      .select('id')
+      .or(`and(user1_id.eq.${currentUserId},user2_id.eq.${targetUserId}),and(user1_id.eq.${targetUserId},user2_id.eq.${currentUserId})`)
+      .eq('skill_tag', matchedSkill)
+      .maybeSingle()
+
+    let conversationId = existing?.id
+    if (!currentUserId || !targetUserId) {
+      console.error('Missing user ID — cannot create conversation.')
+      return
+    }
+
+    if (!conversationId) {
+      const { data: created, error: createError } = await supabase
+        .from('conversations')
+        .insert({
+          user1_id: currentUserId,
+          user2_id: targetUserId,
+          skill_tag: matchedSkill,
+        })
+        .select('id')
+        .single()
+
+      if (createError) {
+        console.error('Error creating conversation:', createError.message)
+        return
+      }
+
+      conversationId = created.id
+      const boilerplate = `${currentUserName} is connected to ${targetUserName} to learn ${matchedSkill}.`
+
+      const { error: messageError } = await supabase.from('messages').insert({
+        conversation_id: conversationId,
+        sender_id: currentUserId,
+        content: boilerplate,
+      })
+
+      if (messageError) {
+        console.error('error sending starter message', messageError.message)
+      }
+    }
+    router.push(`/messages/${conversationId}`)
+    }
   return (
     <Card className="rounded-2xl shadow-md hover:shadow-lg transition bg-white">
       <CardContent className="p-4 space-y-3">
@@ -33,7 +95,7 @@ export default function MatchCard({ name, bio, skills }: MatchCardProps) {
           ))}
         </div>
 
-        <Button variant="default" className="w-full bg-indigo-700 hover:bg-indigo-800">
+        <Button onClick={handleMessage} variant="default" className="w-full bg-indigo-700 hover:bg-indigo-800">
           Message
         </Button>
       </CardContent>
