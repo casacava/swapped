@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase/supabaseClient';
 import ConversationPreview from '@/components/ConversationPreview';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link'
 
 export default function Inbox() {
   const [userId, setUserId] = useState<string | null>(null);
@@ -40,6 +41,14 @@ export default function Inbox() {
 
   return (
     <div className="w-full border-r overflow-y-auto">
+      <div className="flex items-center justify-between px-4 pt-4">
+        <Link
+          href="/dashboard"
+          className="text-sm text-indigo-600 hover:underline"
+        >
+          ← Back to Dashboard
+        </Link>
+      </div>
       <h2 className="text-xl font-serif p-4">Messages</h2>
 
       {conversations.length === 0 ? (
