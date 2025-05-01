@@ -16,6 +16,7 @@ type MatchCardProps = {
   targetUserId: string
   targetUserName: string
   matchedSkill: string
+  activeTab: 'learn' | 'share'
 }
 
 export default function MatchCard({ 
@@ -26,7 +27,8 @@ export default function MatchCard({
   currentUserName,
   targetUserId,
   targetUserName,
-  matchedSkill, }: MatchCardProps) {
+  matchedSkill,
+  activeTab, }: MatchCardProps) {
     const router = useRouter()
 
     async function handleMessage() {
@@ -38,8 +40,8 @@ export default function MatchCard({
       .maybeSingle()
 
     let conversationId = existing?.id
-    if (!currentUserId || !targetUserId) {
-      console.error('Missing user ID — cannot create conversation.')
+    if (!currentUserId || !targetUserId || !matchedSkill) {
+      console.error('Missing required data — cannot create conversation.')
       return
     }
 
@@ -60,7 +62,11 @@ export default function MatchCard({
       }
 
       conversationId = created.id
-      const boilerplate = `${currentUserName} is connected to ${targetUserName} to learn ${matchedSkill}.`
+      const boilerplate =
+      activeTab === 'learn'
+        ? `${currentUserName} is connected to ${targetUserName} to learn ${matchedSkill}.`
+        : `${targetUserName} is connected to ${currentUserName} to learn ${matchedSkill}.`
+
 
       const { error: messageError } = await supabase.from('messages').insert({
         conversation_id: conversationId,

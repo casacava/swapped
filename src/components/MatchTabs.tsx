@@ -108,7 +108,8 @@ export default function MatchTabs({
                   ? match.skills_offered
                   : match.skills_wanted
                 )[0] ?? ''
-              }      
+              }
+              activeTab={activeTab}
             />
           ))}
         </div>
