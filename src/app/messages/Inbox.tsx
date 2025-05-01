@@ -65,14 +65,7 @@ export default function Inbox() {
                 : conv.user1_username
             }
             lastMessage={conv.last_message_content ?? 'No messages yet'}
-            lastMessageTime={
-              conv.last_message_sent_at
-                ? new Date(conv.last_message_sent_at).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })
-                : ''
-            }
+            lastMessageTime={conv.last_message_sent_at ?? null}
             isActive={conv.conversation_id === activeConversationId}
           />
         ))
