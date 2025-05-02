@@ -4,14 +4,14 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabase/supabaseClient"
 import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-// import { Badge } from "@/components/ui/badge"
+import UserAvatar from '@/components/UserAvatar'
 import { Button } from "@/components/ui/button"
 
 type Profile = {
   username: string;
   bio: string;
   skills_offered: string[];
+  avatar_url?: string
 }
 
 export default function ProfilePreview() {
@@ -27,7 +27,7 @@ export default function ProfilePreview() {
 
       const { data: profileData, error} = await supabase
       .from('profiles')
-      .select('username, bio, skills_offered')
+      .select('username, bio, skills_offered, avatar_url')
       .eq('id', userId)
       .single()
 
@@ -61,9 +61,11 @@ export default function ProfilePreview() {
         <h3 className="text-lg font-semibold text-indigo-900">Your Profile</h3>
 
         <div className="flex items-center gap-3">
-          <Avatar>
-            <AvatarFallback>{profile.username[0]}</AvatarFallback>
-          </Avatar>
+        <UserAvatar
+          avatarUrl={profile.avatar_url}
+          username={profile.username}
+          size={48}
+        />
           <div>
             <div className="text-base font-semibold text-indigo-800">{profile.username}</div>
             <p className="text-sm text-muted-foreground">{profile.bio}</p>

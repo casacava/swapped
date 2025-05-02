@@ -7,6 +7,7 @@ import GenderSelect from '@/components/GenderSelect'
 import BioInput from '@/components/BioInput'
 import SkillsSelector from '@/components/SkillsSelector'
 import ZipcodeInput from '@/components/ZipcodeInput'
+import AvatarUploader from '@/components/AvatarUploader'
 
 
 export default function OnboardingPage() {
@@ -17,14 +18,17 @@ export default function OnboardingPage() {
   const [skillsOffered, setSkillsOffered] = useState<string[]>([])
   const [skillsWanted, setSkillsWanted] = useState<string[]>([])
   const [zipcode, setZipcode] = useState('')
+  const [avatarUrl, setAvatarUrl] = useState('')
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [userId, setUserId] = useState<string | null>(null)
 
   useEffect(() => {
     const redirectIfProfileExists = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
+      setUserId(user.id)
   
       const { data: profile } = await supabase
         .from('profiles')
@@ -63,7 +67,9 @@ export default function OnboardingPage() {
       id: user.id,
       username,
       gender,
-      bio,zipcode,
+      bio,
+      zipcode,
+      avatar_url: avatarUrl,
       skills_offered: skillsOffered,
       skills_wanted: skillsWanted,
     })
@@ -93,6 +99,9 @@ export default function OnboardingPage() {
           setWanted={setSkillsWanted}
         />
         <ZipcodeInput value={zipcode} onChange={setZipcode} />
+        {userId && (
+          <AvatarUploader userId={userId} onUploadComplete={setAvatarUrl} />
+        )}
 
         {error && <p className="text-red-600 text-sm">{error}</p>}
 

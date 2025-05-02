@@ -8,11 +8,15 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import SkillsSelector from '@/components/SkillsSelector'
+import AvatarUploader from '@/components/AvatarUploader'
 
 export default function EditProfilePage() {
   const router = useRouter()
+  const [userId, setUserId] = useState<string | null>(null)
+
   const [username, setUsername] = useState('')
   const [bio, setBio] = useState('')
+  const [avatarUrl, setAvatarUrl] = useState('')
   const [skillsOffered, setSkillsOffered] = useState<string[]>([])
   const [skillsWanted, setSkillsWanted] = useState<string[]>([])
 
@@ -23,6 +27,8 @@ export default function EditProfilePage() {
 
       if (!userId) return
 
+      setUserId(userId)
+
       const { data: profile } = await supabase
         .from('profiles')
         .select('*')
@@ -32,6 +38,7 @@ export default function EditProfilePage() {
       if (profile) {
         setUsername(profile.username)
         setBio(profile.bio)
+        setAvatarUrl(profile.avatar_url || '')
         setSkillsOffered(profile.skills_offered || [])
         setSkillsWanted(profile.skills_wanted || [])
       }
@@ -49,6 +56,7 @@ export default function EditProfilePage() {
       .update({
         username,
         bio,
+        avatar_url: avatarUrl,
         skills_offered: skillsOffered,
         skills_wanted: skillsWanted,
       })
@@ -88,6 +96,14 @@ export default function EditProfilePage() {
             setOffered={setSkillsOffered}
             setWanted={setSkillsWanted}
           />
+
+          {userId && (
+            <AvatarUploader
+              userId={userId}
+              currentAvatarUrl={avatarUrl}
+              onUploadComplete={setAvatarUrl}
+            />
+          )}
 
           <Button className="w-full bg-indigo-700 hover:bg-indigo-800" onClick={handleSave}>
             Save Changes

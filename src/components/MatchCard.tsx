@@ -4,13 +4,14 @@ import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabase/supabaseClient"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import UserAvatar from "./UserAvatar"
 
 type MatchCardProps = {
   name: string
   bio: string
   skills: string[]
+  avatarUrl?: string
   currentUserId: string
   currentUserName: string
   targetUserId: string
@@ -23,6 +24,7 @@ export default function MatchCard({
   name, 
   bio, 
   skills,
+  avatarUrl,
   currentUserId,
   currentUserName,
   targetUserId,
@@ -84,9 +86,11 @@ export default function MatchCard({
     <Card className="rounded-2xl shadow-md hover:shadow-lg transition bg-white">
       <CardContent className="p-4 space-y-3">
         <div className="flex items-center gap-3">
-          <Avatar>
-            <AvatarFallback>{name[0]}</AvatarFallback>
-          </Avatar>
+        <UserAvatar
+          avatarUrl={avatarUrl}
+          username={name}
+          size={48}
+        />
           <div>
             <h3 className="text-base font-semibold text-indigo-900">{name}</h3>
             <p className="text-sm text-muted-foreground">{bio}</p>

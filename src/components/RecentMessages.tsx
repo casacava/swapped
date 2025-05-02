@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { supabase } from "@/lib/supabase/supabaseClient"
 import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import UserAvatar from "./UserAvatar"
 
 type MessagePreview = {
   conversation_id: string
@@ -15,6 +15,8 @@ type MessagePreview = {
   user2_id: string
   user1_username: string
   user2_username: string
+  avatar1_url?: string
+  avatar2_url?: string
 }
 
 export default function RecentMessages() {
@@ -59,15 +61,18 @@ export default function RecentMessages() {
           <div className="space-y-3">
             {messages.map((msg) => {
               const name = msg.user1_id === userId ? msg.user2_username : msg.user1_username;
+              const avatarUrl = msg.user1_id === userId ? msg.avatar2_url : msg.avatar1_url
               return (
                 <Link
                   key={msg.conversation_id}
                   href={`/messages/${msg.conversation_id}`}
                   className="flex items-start gap-3 hover:bg-gray-50 rounded-lg p-2 transition"
                 >
-                  <Avatar className="h-8 w-8">
-                    <AvatarFallback>{name[0]}</AvatarFallback>
-                  </Avatar>
+                  <UserAvatar
+                    avatarUrl={avatarUrl}
+                    username={name}
+                    size={32}
+                  />
                   <div>
                     <p className="text-sm font-medium text-indigo-800">{name}</p>
                     <p className="text-sm text-gray-600 line-clamp-2">
