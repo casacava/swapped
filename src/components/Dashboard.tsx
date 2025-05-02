@@ -6,6 +6,7 @@ import ProfilePreview from './ProfilePreview'
 import RecentMessages from './RecentMessages'
 import { supabase } from '@/lib/supabase/supabaseClient'
 import { useRouter } from 'next/navigation'
+import LogoutButton from './LogoutButton'
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<'learn' | 'share'>('learn')
@@ -23,7 +24,7 @@ export default function Dashboard() {
           <h1 className="text-3xl sm:text-4xl font-serif text-indigo-900">
             Welcome to Swapped ✨
           </h1>
-          <button onClick={handleLogout} className="text-sm text-gray-600 hover:underline">Log Out</button>
+          <LogoutButton />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
