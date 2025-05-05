@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent } from 'react'
+import { useEffect, useState, ChangeEvent } from 'react'
 
 export default function FilterZip({
   zipcode,
@@ -9,15 +9,25 @@ export default function FilterZip({
   zipcode: string
   setZipcode: (zip: string) => void
 }) {
+  const [inputValue, setInputValue] = useState(zipcode)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setZipcode(inputValue.trim())
+    }, 300)
+
+    return () => clearTimeout(handler)
+  }, [inputValue, setZipcode])
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setZipcode(e.target.value)
+    setInputValue(e.target.value)
   }
 
   return (
     <input
       type="text"
       placeholder="Filter by Zipcode"
-      value={zipcode}
+      value={inputValue}
       onChange={handleChange}
       className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
     />
