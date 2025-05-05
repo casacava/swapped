@@ -10,6 +10,7 @@ type Profile = {
   bio: string
   skills_offered: string[]
   skills_wanted: string[]
+  zipcode?: string
 }
 
 export default function MatchTabs({
@@ -22,6 +23,7 @@ export default function MatchTabs({
   const [matches, setMatches] = useState<Profile[]>([])
   const [loading, setLoading] = useState(true)
   const [currentProfile, setCurrentProfile] = useState<Profile | null>(null)
+  const [zipcode, setZipcode] = useState('')
 
   useEffect(() => {
     const fetchMatches = async () => {
@@ -43,11 +45,17 @@ export default function MatchTabs({
       const targetSkills =
         activeTab === 'learn' ? currentProfile.skills_wanted : currentProfile.skills_offered
   
-      const { data: matchProfiles, error } = await supabase
+      let query = supabase
         .from('profiles')
         .select('*')
         .not('id', 'eq', userId)
         .overlaps(skillField, targetSkills)
+
+      if (zipcode.trim() !== '') {
+        query = query.eq('zipcode', zipcode.trim())
+      }
+
+      const { data: matchProfiles, error} = await query
   
       if (error) {
         console.error('Error fetching matches:', error.message)
@@ -58,7 +66,7 @@ export default function MatchTabs({
       setCurrentProfile(currentProfile)
     }
     fetchMatches()
-  }, [activeTab])  
+  }, [activeTab, zipcode])  
 
   return (
     <div className="space-y-4">
@@ -84,6 +92,14 @@ export default function MatchTabs({
           Happy to Share
         </button>
       </div>
+
+      <input
+          type="text"
+          placeholder="Filter by Zipcode"
+          value={zipcode}
+          onChange={(e) => setZipcode(e.target.value)}
+          className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        />
 
       {loading ? (
         <p className="text-sm text-gray-500 mt-4">Loading matches...</p>
