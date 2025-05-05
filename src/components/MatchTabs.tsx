@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase/supabaseClient'
 import MatchCard from './MatchCard'
+import FilterZip from './FilterZip'
 
 type Profile = {
   id: string
@@ -93,14 +94,7 @@ export default function MatchTabs({
         </button>
       </div>
 
-      <input
-          type="text"
-          placeholder="Filter by Zipcode"
-          value={zipcode}
-          onChange={(e) => setZipcode(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        />
-
+      <FilterZip zipcode={zipcode} setZipcode={setZipcode} />
       {loading ? (
         <p className="text-sm text-gray-500 mt-4">Loading matches...</p>
       ) : matches.length === 0 ? (
