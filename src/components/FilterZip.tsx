@@ -72,7 +72,6 @@ export default function FilterZip({
         </button>
       )}
 
-
       {error && (
         <p className="text-sm text-red-500 mt-1">Please enter a valid 5-digit zipcode</p>
       )}
