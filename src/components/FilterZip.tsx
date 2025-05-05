@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, ChangeEvent } from 'react'
-import { X } from 'lucide-react'
+import { X, MapPin } from 'lucide-react'
 
 export default function FilterZip({
   zipcode,
@@ -47,14 +47,16 @@ export default function FilterZip({
   }
 
   return (
-    <div className="flex flex-col w-[150px] relative">
+    <div className="flex flex-row w-[150px] relative">
+      <div className='flex'> 
+      <MapPin size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400" />
       <input
         type="text"
         placeholder="Filter by Zipcode"
         value={inputValue}
         onChange={handleChange}
         maxLength={5}
-        className={`px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 ${
+        className={`px-8 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 ${
           error
             ? 'border-red-500 focus:ring-red-400'
             : 'border-gray-300 focus:ring-indigo-400'
@@ -75,6 +77,7 @@ export default function FilterZip({
       {error && (
         <p className="text-sm text-red-500 mt-1">Please enter a valid 5-digit zipcode</p>
       )}
+      </div>
     </div>
   )
 }
