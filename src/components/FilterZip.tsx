@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, ChangeEvent } from 'react'
+import { X } from 'lucide-react'
 
 export default function FilterZip({
   zipcode,
@@ -39,8 +40,14 @@ export default function FilterZip({
     setInputValue(numericOnly)
   }
 
+  const handleClear = () => {
+    setInputValue('')
+    setZipcode('')
+    setError(false)
+  }
+
   return (
-    <div className="flex flex-col w-[150px]">
+    <div className="flex flex-col w-[150px] relative">
       <input
         type="text"
         placeholder="Filter by Zipcode"
@@ -53,6 +60,19 @@ export default function FilterZip({
             : 'border-gray-300 focus:ring-indigo-400'
         }`}
       />
+
+      {inputValue && (
+        <button
+          type="button"
+          onClick={handleClear}
+          className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500"
+          aria-label="Clear zipcode"
+        >
+          <X size={14} />
+        </button>
+      )}
+
+
       {error && (
         <p className="text-sm text-red-500 mt-1">Please enter a valid 5-digit zipcode</p>
       )}
