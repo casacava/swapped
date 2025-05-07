@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase/supabaseClient';
-import ConversationPreview from '@/components/ConversationPreview';
+import ConversationPreview from '@/components/dashboard/ConversationPreview';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link'
 
