@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase/supabaseClient'
 
-import Dashboard from '@/components/Dashboard'
+import Dashboard from '@/components/dashboard/Dashboard'
 
 export default function DashboardPage() {
   const router = useRouter()

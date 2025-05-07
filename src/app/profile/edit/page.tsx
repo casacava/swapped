@@ -7,8 +7,8 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import SkillsSelector from '@/components/SkillsSelector'
-import AvatarUploader from '@/components/AvatarUploader'
+import SkillsSelector from '@/components/onboarding/SkillsSelector'
+import AvatarUploader from '@/components/profile/AvatarUploader'
 
 export default function EditProfilePage() {
   const router = useRouter()

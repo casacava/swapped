@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabase/supabaseClient"
 import { Card, CardContent } from "@/components/ui/card"
-import UserAvatar from '@/components/UserAvatar'
+import UserAvatar from '@/components/dashboard/UserAvatar'
 import { Button } from "@/components/ui/button"
 
 type Profile = {

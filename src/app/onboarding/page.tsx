@@ -2,12 +2,12 @@
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase/supabaseClient'
 import { useState, useEffect } from 'react'
-import UsernameInput from '@/components/UsernameInput'
-import GenderSelect from '@/components/GenderSelect'
-import BioInput from '@/components/BioInput'
-import SkillsSelector from '@/components/SkillsSelector'
-import ZipcodeInput from '@/components/ZipcodeInput'
-import AvatarUploader from '@/components/AvatarUploader'
+import UsernameInput from '@/components/onboarding/UsernameInput'
+import GenderSelect from '@/components/onboarding/GenderSelect'
+import BioInput from '@/components/onboarding/BioInput'
+import SkillsSelector from '@/components/onboarding/SkillsSelector'
+import ZipcodeInput from '@/components/onboarding/ZipcodeInput'
+import AvatarUploader from '@/components/profile/AvatarUploader'
 
 
 export default function OnboardingPage() {

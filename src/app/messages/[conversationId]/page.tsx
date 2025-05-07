@@ -2,8 +2,8 @@
 
 import { useParams } from "next/navigation"
 import { supabase } from "@/lib/supabase/supabaseClient"
-import MessageBubble from "@/components/MessageBubble"
-import MessageInput from "@/components/MessageInput"
+import MessageBubble from "@/components/messaging/MessageBubble"
+import MessageInput from "@/components/messaging/MessageInput"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 

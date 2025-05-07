@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import MatchTabs from './MatchTabs'
-import ProfilePreview from './ProfilePreview'
+import ProfilePreview from '../profile/ProfilePreview'
 import RecentMessages from './RecentMessages'
 import { supabase } from '@/lib/supabase/supabaseClient'
 import { useRouter } from 'next/navigation'
